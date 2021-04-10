@@ -5,7 +5,7 @@ function App() {
   const [result, setResult] = useState("");
 
   const fetchData = async () => {
-    const response = await axios.get("/api/");
+    const response = await axios.get("/api");
     setResult(response.data);
   };
 

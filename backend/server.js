@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import userRoute from "./routes/userRoute.js";
+import projectRoute from "./routes/projectRoute.js";
 
 const app = express();
 
@@ -13,6 +14,7 @@ mongoose.connect("mongodb://localhost/edirect", {
 });
 
 app.use("/api/users", userRoute);
+app.use("/api/projects", projectRoute);
 
 app.get("/api/", (req, res) => {
   res.send("Hello World!");

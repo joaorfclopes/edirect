@@ -7,6 +7,24 @@ const data = {
       email: "joaorfclopes@gmail.com",
       password: bcrypt.hashSync("123", 8),
     },
+    {
+      _id: "6071e2310b48ac27cf26d30b",
+      name: "Test User",
+      email: "testuser@gmail.com",
+      password: bcrypt.hashSync("test123", 8),
+    },
+  ],
+  projects: [
+    {
+      name: "Test Project",
+      tasks: [
+        {
+          title: "Lorem ipsum dolor sit amet",
+          completed: false,
+        },
+      ],
+      user: "6071e2310b48ac27cf26d30b",
+    },
   ],
 };
 

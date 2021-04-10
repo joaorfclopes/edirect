@@ -9,7 +9,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Link as RouterLink } from "react-router-dom";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +104,7 @@ export default function SignIn(props) {
           </Button>
           <Grid container>
             <Grid item>
-              <Link component={RouterLink} to="/signup" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

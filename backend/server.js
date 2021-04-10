@@ -5,6 +5,9 @@ import projectRoute from "./routes/projectRoute.js";
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const PORT = 5000;
 
 mongoose.connect("mongodb://localhost/edirect", {
@@ -15,10 +18,6 @@ mongoose.connect("mongodb://localhost/edirect", {
 
 app.use("/api/users", userRoute);
 app.use("/api/projects", projectRoute);
-
-app.get("/api/", (req, res) => {
-  res.send("Hello World!");
-});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

@@ -1,22 +1,32 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import Projects from "./views/Projects";
+import SignIn from "./views/SignIn";
+import SignUp from "./views/SignUp";
 
 function App() {
-  const [result, setResult] = useState("");
-
-  const fetchData = async () => {
-    const response = await axios.get("/api");
-    setResult(response.data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const userInfo = localStorage.getItem("userInfo");
 
   return (
-    <div className="App">
-      <h1>{result}</h1>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <main>
+          <Switch>
+            <Route
+              path="/signin"
+              render={(props) => <SignIn {...props} userInfo={userInfo} />}
+            />
+            <Route path="/signup" component={SignUp} />
+            <Route
+              path="/"
+              render={(props) =>
+                userInfo ? <Projects {...props} /> : <Redirect to="/signin" />
+              }
+            />
+          </Switch>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 

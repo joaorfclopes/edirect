@@ -1,0 +1,26 @@
+{
+  "name": "edirect",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup-backend": "yarn install",
+    "dev-backend": "nodemon backend/server.js",
+    "start-backend": "node backend/server.js",
+    "setup-frontend": "cd frontend && yarn install",
+    "start-frontend": "cd frontend && yarn start",
+    "dev": "concurrently \"yarn dev-backend\" \"yarn start-frontend\"",
+    "start": "concurrently \"yarn start-backend\" \"yarn start-frontend\"",
+    "quick-start": "yarn setup-backend && yarn setup-frontend && yarn start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.1",
+    "nodemon": "^2.0.7"
+  }
+}

@@ -29,19 +29,19 @@ export default function MenuAppBar(props) {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const logout = () => {
+    handleClose();
     localStorage.removeItem("userInfo");
     window.location.href = "/";
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-    logout();
-  };
-
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" style={{ background: "#25476d" }}>
+      <AppBar position="fixed" color="inherit">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <img
@@ -75,7 +75,7 @@ export default function MenuAppBar(props) {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={logout}>Log Out</MenuItem>
             </Menu>
           </div>
         </Toolbar>

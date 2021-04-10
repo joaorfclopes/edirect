@@ -16,7 +16,10 @@ function App() {
               path="/signin"
               render={(props) => <SignIn {...props} userInfo={userInfo} />}
             />
-            <Route path="/signup" component={SignUp} />
+            <Route
+              path="/signup"
+              render={(props) => <SignUp {...props} userInfo={userInfo} />}
+            />
             <Route
               path="/"
               render={(props) =>

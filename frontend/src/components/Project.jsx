@@ -48,15 +48,17 @@ export default function Project(props) {
         <br />
         <Typography color="textSecondary">To Do</Typography>
         <List className={classes.list}>
-          {project.tasks.map(
-            (task) => !task.done && <Task key={task._id} task={task} />
-          )}
+          {project.tasks &&
+            project.tasks.map(
+              (task) => !task.done && <Task key={task._id} task={task} />
+            )}
         </List>
         <Typography color="textSecondary">Done</Typography>
         <List className={classes.list}>
-          {project.tasks.map(
-            (task) => task.done && <Task key={task._id} task={task} />
-          )}
+          {project.tasks &&
+            project.tasks.map(
+              (task) => task.done && <Task key={task._id} task={task} />
+            )}
         </List>
       </CardContent>
     </Card>

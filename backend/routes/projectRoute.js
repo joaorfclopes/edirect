@@ -25,10 +25,16 @@ projectRouter.put(
       if (task._id == taskId) {
         task.done = !task.done;
         const updatedProject = await project.save();
-        res.send({ message: "Task toggled", project: updatedProject });
+        res.send(updatedProject);
       }
     });
   }
 );
+
+projectRouter.get("/:projectId/tasks", isAuth, async (req, res) => {
+  const project = await Project.findById(req.params.projectId);
+  const tasks = project.tasks;
+  res.send(tasks);
+});
 
 export default projectRouter;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -6,15 +6,27 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import ClearIcon from "@material-ui/icons/Clear";
+import { useDispatch } from "react-redux";
+import { toggleTask } from "../actions/projectActions";
 
 export default function Task(props) {
-  const { task } = props;
+  const dispatch = useDispatch();
+
+  const { project, task } = props;
+
+  const [checked, setChecked] = useState(task.done);
+
+  const handleChange = () => {
+    dispatch(toggleTask(project._id, task._id));
+    setChecked(!checked);
+  };
 
   return (
     <ListItem key={task._id} role={undefined} dense button>
       <ListItemIcon>
         <Checkbox
-          checked={task.done}
+          checked={checked}
+          onChange={handleChange}
           edge="start"
           color="primary"
           inputProps={{

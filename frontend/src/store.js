@@ -4,7 +4,11 @@ import {
   userRegisterReducer,
   userSigninReducer,
 } from "./reducers/userReducers";
-import { projectListReducer } from "./reducers/projectReducers";
+import {
+  projectListReducer,
+  taskListReducer,
+  toggleTaskReducer,
+} from "./reducers/projectReducers";
 
 const initialState = {
   userSignin: {
@@ -18,6 +22,8 @@ const reducer = combineReducers({
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
   projectList: projectListReducer,
+  toggleTask: toggleTaskReducer,
+  taskList: taskListReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

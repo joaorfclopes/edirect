@@ -11,9 +11,7 @@ import Menu from "@material-ui/core/Menu";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
+    marginBottom: 65,
   },
   title: {
     flexGrow: 1,
@@ -50,6 +48,7 @@ export default function MenuAppBar(props) {
               style={{ width: "45px", marginTop: "10px" }}
             />
           </Typography>
+          <Typography variant="body2">{props.userInfo.name}</Typography>
           <div>
             <IconButton
               aria-label="account of current user"

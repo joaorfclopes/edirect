@@ -20,7 +20,15 @@ const data = {
       tasks: [
         {
           title: "Lorem ipsum dolor sit amet",
-          completed: false,
+          done: false,
+        },
+        {
+          title: "Lorem ipsum",
+          done: true,
+        },
+        {
+          title: "Dolor sit amet",
+          done: true,
         },
       ],
       user: "6071e2310b48ac27cf26d30b",

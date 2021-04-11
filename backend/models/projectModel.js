@@ -5,8 +5,8 @@ const projectSchema = new mongoose.Schema(
     name: { type: String, required: true, unique: true },
     tasks: [
       {
-        title: { type: String, required: true },
-        completed: { type: Boolean, required: true, default: false },
+        title: { type: String, required: true, unique: true },
+        done: { type: Boolean, required: true, default: false },
       },
     ],
     user: {

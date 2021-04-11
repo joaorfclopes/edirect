@@ -23,7 +23,11 @@ function App() {
             <Route
               path="/"
               render={(props) =>
-                userInfo ? <Projects {...props} /> : <Redirect to="/signin" />
+                userInfo ? (
+                  <Projects {...props} userInfo={userInfo} />
+                ) : (
+                  <Redirect to="/signin" />
+                )
               }
             />
           </Switch>

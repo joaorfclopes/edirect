@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp(props) {
+  const classes = useStyles();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,8 +67,6 @@ export default function SignUp(props) {
       props.history.push(redirect);
     }
   }, [props, redirect]);
-
-  const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">

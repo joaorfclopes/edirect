@@ -5,6 +5,7 @@ import {
   userSigninReducer,
 } from "./reducers/userReducers";
 import {
+  projectCreateReducer,
   projectListReducer,
   toggleTaskReducer,
 } from "./reducers/projectReducers";
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   projectList: projectListReducer,
   toggleTask: toggleTaskReducer,
+  projectCreate: projectCreateReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

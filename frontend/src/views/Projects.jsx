@@ -34,7 +34,7 @@ export default function Projects(props) {
         <Grid container spacing={3} className={classes.grid}>
           {projects &&
             projects.map((project) => (
-              <Grid key={project._id} item xs={12} sm={6} md={3}>
+              <Grid key={project._id} item xs={12} sm={6} md={4}>
                 <Project project={project} />
               </Grid>
             ))}

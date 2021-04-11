@@ -31,4 +31,13 @@ projectRouter.put(
   }
 );
 
+projectRouter.post("/", async (req, res) => {
+  const project = new Project({
+    name: req.body.name,
+    user: req.body.user,
+  });
+  const createdProject = await project.save();
+  res.send(createdProject);
+});
+
 export default projectRouter;

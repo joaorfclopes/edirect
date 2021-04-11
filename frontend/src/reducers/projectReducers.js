@@ -6,6 +6,10 @@ import {
   TOGGLE_TASK_SUCCESS,
   TOGGLE_TASK_FAIL,
   TOGGLE_TASK_RESET,
+  PROJECT_CREATE_REQUEST,
+  PROJECT_CREATE_SUCCESS,
+  PROJECT_CREATE_FAIL,
+  PROJECT_CREATE_RESET,
 } from "../constants/projectConstants";
 
 export const projectListReducer = (state = { projects: [] }, action) => {
@@ -30,6 +34,21 @@ export const toggleTaskReducer = (state = {}, action) => {
     case TOGGLE_TASK_FAIL:
       return { loading: false, error: action.payload };
     case TOGGLE_TASK_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const projectCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PROJECT_CREATE_REQUEST:
+      return { loading: true };
+    case PROJECT_CREATE_SUCCESS:
+      return { loading: false, success: true, project: action.payload };
+    case PROJECT_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+    case PROJECT_CREATE_RESET:
       return {};
     default:
       return state;

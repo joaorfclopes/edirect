@@ -9,6 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userActions";
+import { createProject, listProjects } from "../actions/projectActions";
+import Modal from "./Modal";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -28,7 +30,18 @@ export default function MenuAppBar() {
   const { userInfo } = userSignin;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [projectName, setProjectName] = React.useState(false);
   const open = Boolean(anchorEl);
+
+  const handleOpenModal = () => {
+    handleClose();
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,6 +54,16 @@ export default function MenuAppBar() {
   const logout = () => {
     handleClose();
     dispatch(signout());
+  };
+
+  const create = () => {
+    dispatch(
+      createProject({
+        name: projectName,
+        user: userInfo._id,
+      })
+    );
+    dispatch(listProjects());
   };
 
   return (
@@ -80,11 +103,18 @@ export default function MenuAppBar() {
               open={open}
               onClose={handleClose}
             >
+              <MenuItem onClick={handleOpenModal}>Create Project</MenuItem>
               <MenuItem onClick={logout}>Log Out</MenuItem>
             </Menu>
           </div>
         </Toolbar>
       </AppBar>
+      <Modal
+        open={openModal}
+        handleClose={handleCloseModal}
+        setProjectName={setProjectName}
+        create={create}
+      />
     </div>
   );
 }

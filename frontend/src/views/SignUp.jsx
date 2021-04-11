@@ -9,7 +9,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp(props) {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister);
+  const { userInfo } = userRegister;
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,30 +48,20 @@ export default function SignUp(props) {
     ? props.location.search.split("=")[1]
     : "/";
 
-  const signup = async () => {
-    const { data } = await axios.post("/api/users/register", {
-      name,
-      email,
-      password,
-    });
-    localStorage.setItem("userInfo", JSON.stringify(data));
-    window.location.href = redirect;
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords don't match!");
     } else {
-      signup();
+      dispatch(register(name, email, password));
     }
   };
 
   useEffect(() => {
-    if (props.userInfo) {
+    if (userInfo) {
       props.history.push(redirect);
     }
-  }, [props, redirect]);
+  }, [props, redirect, userInfo]);
 
   return (
     <Container component="main" maxWidth="xs">

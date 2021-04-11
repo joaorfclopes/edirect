@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Navbar from "../components/Navbar";
 import Project from "../components/Project";
+import { useDispatch, useSelector } from "react-redux";
+import { listProjects } from "../actions/projectActions";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -18,33 +19,23 @@ const useStyles = makeStyles(() => ({
 export default function Projects(props) {
   const classes = useStyles();
 
-  const userInfo = JSON.parse(props.userInfo);
-
-  const [projects, setProjects] = useState([]);
-
-  const fetchData = async () => {
-    const { data } = await axios.get("/api/projects", {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
-    setProjects(data);
-  };
+  const dispatch = useDispatch();
+  const projectList = useSelector((state) => state.projectList);
+  const { projects } = projectList;
 
   useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(listProjects());
+  }, [dispatch]);
 
   return (
     <>
-      <Navbar userInfo={userInfo} />
+      <Navbar />
       <div className={classes.root}>
         <Grid container spacing={3} className={classes.grid}>
           {projects &&
             projects.map((project) => (
               <Grid key={project._id} item xs={12} sm={6} md={3}>
-                <Project project={project} userInfo={userInfo} />
+                <Project project={project} />
               </Grid>
             ))}
         </Grid>

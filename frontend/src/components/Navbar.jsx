@@ -7,8 +7,10 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../actions/userActions";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     marginBottom: 65,
@@ -18,8 +20,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar(props) {
+export default function MenuAppBar() {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -33,8 +40,7 @@ export default function MenuAppBar(props) {
 
   const logout = () => {
     handleClose();
-    localStorage.removeItem("userInfo");
-    window.location.href = "/";
+    dispatch(signout());
   };
 
   return (
@@ -48,7 +54,7 @@ export default function MenuAppBar(props) {
               style={{ width: "45px", marginTop: "10px" }}
             />
           </Typography>
-          <Typography variant="body2">{props.userInfo.name}</Typography>
+          <Typography variant="body2">{userInfo.name}</Typography>
           <div>
             <IconButton
               aria-label="account of current user"

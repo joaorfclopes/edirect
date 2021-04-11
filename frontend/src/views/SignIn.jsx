@@ -9,7 +9,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { signin } from "../actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,22 +46,16 @@ export default function SignIn(props) {
     ? props.location.search.split("=")[1]
     : "/";
 
-  const signin = async () => {
-    const { data } = await axios.post("/api/users/signin", { email, password });
-    localStorage.setItem("userInfo", JSON.stringify(data));
-    window.location.href = redirect;
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
-    signin();
+    dispatch(signin(email, password));
   };
 
   useEffect(() => {
-    if (props.userInfo) {
+    if (userInfo) {
       props.history.push(redirect);
     }
-  }, [props, redirect]);
+  }, [props, redirect, userInfo]);
 
   return (
     <Container component="main" maxWidth="xs">

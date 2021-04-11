@@ -52,12 +52,7 @@ export default function Project(props) {
             project.tasks.map(
               (task) =>
                 !task.done && (
-                  <Task
-                    key={task._id}
-                    task={task}
-                    project={project}
-                    userInfo={props.userInfo}
-                  />
+                  <Task key={task._id} task={task} project={project} />
                 )
             )}
         </List>
@@ -67,12 +62,7 @@ export default function Project(props) {
             project.tasks.map(
               (task) =>
                 task.done && (
-                  <Task
-                    key={task._id}
-                    task={task}
-                    project={project}
-                    userInfo={props.userInfo}
-                  />
+                  <Task key={task._id} task={task} project={project} />
                 )
             )}
         </List>

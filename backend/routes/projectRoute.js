@@ -31,10 +31,4 @@ projectRouter.put(
   }
 );
 
-projectRouter.get("/:projectId/tasks", isAuth, async (req, res) => {
-  const project = await Project.findById(req.params.projectId);
-  const tasks = project.tasks;
-  res.send(tasks);
-});
-
 export default projectRouter;

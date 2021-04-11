@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,9 +9,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import List from "@material-ui/core/List";
 import Task from "./Task";
-import { useDispatch, useSelector } from "react-redux";
-import { TOGGLE_TASK_RESET } from "../constants/projectConstants";
-import { listTasks } from "../actions/projectActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,21 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Project(props) {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-  const toggleTask = useSelector((state) => state.toggleTask);
-  const { success } = toggleTask;
-  const taskList = useSelector((state) => state.taskList);
-  const { tasks } = taskList;
-
   const project = props.project;
-
-  useEffect(() => {
-    dispatch(listTasks(project._id));
-    if (success) {
-      dispatch({ type: TOGGLE_TASK_RESET });
-      dispatch(listTasks(project._id));
-    }
-  }, [success, dispatch, project]);
 
   return (
     <Card className={classes.root}>
@@ -65,8 +48,8 @@ export default function Project(props) {
         <br />
         <Typography color="textSecondary">To Do</Typography>
         <List className={classes.list}>
-          {tasks &&
-            tasks.map(
+          {project.tasks &&
+            project.tasks.map(
               (task) =>
                 !task.done && (
                   <Task key={task._id} task={task} project={project} />
@@ -75,8 +58,8 @@ export default function Project(props) {
         </List>
         <Typography color="textSecondary">Done</Typography>
         <List className={classes.list}>
-          {tasks &&
-            tasks.map(
+          {project.tasks &&
+            project.tasks.map(
               (task) =>
                 task.done && (
                   <Task key={task._id} task={task} project={project} />

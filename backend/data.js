@@ -16,7 +16,7 @@ const data = {
   ],
   projects: [
     {
-      name: "Test Project",
+      name: "Test Project 1",
       tasks: [
         {
           title: "Lorem ipsum dolor sit amet",
@@ -29,6 +29,20 @@ const data = {
         {
           title: "Dolor sit amet",
           done: true,
+        },
+      ],
+      user: "6071e2310b48ac27cf26d30b",
+    },
+    {
+      name: "Test Project 2",
+      tasks: [
+        {
+          title: "Lorem ipsum dolor sit amet",
+          done: true,
+        },
+        {
+          title: "Lorem ipsum",
+          done: false,
         },
       ],
       user: "6071e2310b48ac27cf26d30b",

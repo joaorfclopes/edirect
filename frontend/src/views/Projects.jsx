@@ -5,6 +5,10 @@ import Navbar from "../components/Navbar";
 import Project from "../components/Project";
 import { useDispatch, useSelector } from "react-redux";
 import { listProjects } from "../actions/projectActions";
+import {
+  PROJECT_DELETE_RESET,
+  TOGGLE_TASK_RESET,
+} from "../constants/projectConstants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,10 +26,18 @@ export default function Projects(props) {
   const dispatch = useDispatch();
   const projectList = useSelector((state) => state.projectList);
   const { projects } = projectList;
+  const toggleTask = useSelector((state) => state.toggleTask);
+  const { success: successToggle } = toggleTask;
+  const projectDelete = useSelector((state) => state.projectDelete);
+  const { success: successDelete } = projectDelete;
 
   useEffect(() => {
     dispatch(listProjects());
-  }, [dispatch]);
+    if (successToggle || successDelete) {
+      dispatch({ type: TOGGLE_TASK_RESET });
+      dispatch({ type: PROJECT_DELETE_RESET });
+    }
+  }, [dispatch, successToggle, successDelete]);
 
   return (
     <>

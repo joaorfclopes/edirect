@@ -51,7 +51,7 @@ export default function SimpleModal(props) {
           onChange={(e) => props.setProjectName(e.target.value)}
         />
         <Button
-          style={{ marginTop: "20px", width: "100%" }}
+          style={{ marginTop: "30px", width: "100%" }}
           type="submit"
           variant="contained"
           color="primary"

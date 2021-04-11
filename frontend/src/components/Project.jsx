@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,9 +9,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import List from "@material-ui/core/List";
 import Task from "./Task";
-import { useDispatch, useSelector } from "react-redux";
-import { listProjects } from "../actions/projectActions";
-import { TOGGLE_TASK_RESET } from "../constants/projectConstants";
+import { useDispatch } from "react-redux";
+import { deleteProject } from "../actions/projectActions";
+import Alert from "./Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,24 +33,29 @@ export default function Project(props) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const toggleTask = useSelector((state) => state.toggleTask);
-  const { success } = toggleTask;
 
   const project = props.project;
 
-  useEffect(() => {
-    if (success) {
-      dispatch({ type: TOGGLE_TASK_RESET });
-      dispatch(listProjects());
-    }
-  }, [dispatch, success]);
+  const deleteHandler = () => {
+    dispatch(deleteProject(project._id));
+  };
+
+  const [openAlert, setOpenAlert] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpenAlert(true);
+  };
+
+  const handleClose = () => {
+    setOpenAlert(false);
+  };
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5" component="h2">
           {project.name}
-          <IconButton className={classes.icon}>
+          <IconButton onClick={handleClickOpen} className={classes.icon}>
             <DeleteIcon />
           </IconButton>
           <IconButton className={classes.icon}>
@@ -81,6 +86,11 @@ export default function Project(props) {
             )}
         </List>
       </CardContent>
+      <Alert
+        open={openAlert}
+        handleClose={handleClose}
+        deleteHandler={deleteHandler}
+      />
     </Card>
   );
 }

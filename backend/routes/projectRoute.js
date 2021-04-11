@@ -40,4 +40,12 @@ projectRouter.post("/", async (req, res) => {
   res.send(createdProject);
 });
 
+projectRouter.delete("/:id", isAuth, async (req, res) => {
+  const project = await Project.findById(req.params.id);
+  if (project) {
+    const deletedProject = await project.remove();
+    res.send(deletedProject);
+  }
+});
+
 export default projectRouter;

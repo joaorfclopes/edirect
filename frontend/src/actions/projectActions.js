@@ -10,6 +10,9 @@ import {
   PROJECT_CREATE_REQUEST,
   PROJECT_CREATE_SUCCESS,
   PROJECT_CREATE_FAIL,
+  PROJECT_DELETE_REQUEST,
+  PROJECT_DELETE_SUCCESS,
+  PROJECT_DELETE_FAIL,
 } from "../constants/projectConstants";
 
 export const listProjects = () => async (dispatch, getState) => {
@@ -65,6 +68,30 @@ export const createProject = (project) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PROJECT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteProject = (projectId) => async (dispatch, getState) => {
+  dispatch({ type: PROJECT_DELETE_REQUEST, payload: projectId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    // eslint-disable-next-line no-unused-vars
+    const { data } = axios.delete(`/api/projects/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: PROJECT_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PROJECT_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

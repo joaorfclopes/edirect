@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userActions";
-import { createProject, listProjects } from "../actions/projectActions";
+import { createProject } from "../actions/projectActions";
 import Modal from "./Modal";
 
 const useStyles = makeStyles(() => ({
@@ -63,7 +63,6 @@ export default function MenuAppBar() {
         user: userInfo._id,
       })
     );
-    dispatch(listProjects());
   };
 
   return (
@@ -110,6 +109,8 @@ export default function MenuAppBar() {
         </Toolbar>
       </AppBar>
       <Modal
+        modalTitle="Create Product"
+        modalButtonText="Create"
         open={openModal}
         handleClose={handleCloseModal}
         setProjectName={setProjectName}

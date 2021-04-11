@@ -10,7 +10,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import List from "@material-ui/core/List";
 import Task from "./Task";
 import { useDispatch } from "react-redux";
-import { deleteProject } from "../actions/projectActions";
+import { deleteProject, updateProject } from "../actions/projectActions";
+import Modal from "./Modal";
 import Alert from "./Alert";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,18 +37,39 @@ export default function Project(props) {
 
   const project = props.project;
 
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [projectName, setProjectName] = React.useState(project.name);
+
   const deleteHandler = () => {
     dispatch(deleteProject(project._id));
   };
 
-  const [openAlert, setOpenAlert] = React.useState(false);
+  const updateHandler = () => {
+    dispatch(
+      updateProject({
+        _id: project._id,
+        name: projectName,
+        tasks: project.tasks,
+        user: project.user,
+      })
+    );
+  };
 
-  const handleClickOpen = () => {
+  const handleOpenAlert = () => {
     setOpenAlert(true);
   };
 
-  const handleClose = () => {
+  const handleCloseAlert = () => {
     setOpenAlert(false);
+  };
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -55,10 +77,10 @@ export default function Project(props) {
       <CardContent>
         <Typography variant="h5" component="h2">
           {project.name}
-          <IconButton onClick={handleClickOpen} className={classes.icon}>
+          <IconButton onClick={handleOpenAlert} className={classes.icon}>
             <DeleteIcon />
           </IconButton>
-          <IconButton className={classes.icon}>
+          <IconButton onClick={handleOpenModal} className={classes.icon}>
             <EditIcon />
           </IconButton>
         </Typography>
@@ -86,9 +108,18 @@ export default function Project(props) {
             )}
         </List>
       </CardContent>
+      <Modal
+        modalTitle="Update Product"
+        modalButtonText="Update"
+        open={openModal}
+        handleClose={handleCloseModal}
+        setProjectName={setProjectName}
+        update={updateHandler}
+        value={projectName}
+      />
       <Alert
         open={openAlert}
-        handleClose={handleClose}
+        handleClose={handleCloseAlert}
         deleteHandler={deleteHandler}
       />
     </Card>

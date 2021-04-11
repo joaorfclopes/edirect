@@ -8,6 +8,7 @@ import {
   projectCreateReducer,
   projectDeleteReducer,
   projectListReducer,
+  projectUpdateReducer,
   toggleTaskReducer,
 } from "./reducers/projectReducers";
 
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   projectList: projectListReducer,
   toggleTask: toggleTaskReducer,
   projectCreate: projectCreateReducer,
+  projectUpdate: projectUpdateReducer,
   projectDelete: projectDeleteReducer,
 });
 

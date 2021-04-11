@@ -13,6 +13,9 @@ import {
   PROJECT_DELETE_REQUEST,
   PROJECT_DELETE_SUCCESS,
   PROJECT_DELETE_FAIL,
+  PROJECT_UPDATE_REQUEST,
+  PROJECT_UPDATE_SUCCESS,
+  PROJECT_UPDATE_FAIL,
 } from "../constants/projectConstants";
 
 export const listProjects = () => async (dispatch, getState) => {
@@ -68,6 +71,29 @@ export const createProject = (project) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PROJECT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateProject = (project) => async (dispatch, getState) => {
+  dispatch({ type: PROJECT_UPDATE_REQUEST, payload: project });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = axios.put(`/api/projects/${project._id}`, project, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: PROJECT_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PROJECT_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

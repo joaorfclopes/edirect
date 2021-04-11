@@ -31,13 +31,22 @@ projectRouter.put(
   }
 );
 
-projectRouter.post("/", async (req, res) => {
+projectRouter.post("/", isAuth, async (req, res) => {
   const project = new Project({
     name: req.body.name,
     user: req.body.user,
   });
   const createdProject = await project.save();
   res.send(createdProject);
+});
+
+projectRouter.put("/:id", isAuth, async (req, res) => {
+  const project = await Project.findById(req.params.id);
+  if (project) {
+    project.name = req.body.name;
+    const updatedProject = await project.save();
+    res.send(updatedProject);
+  }
 });
 
 projectRouter.delete("/:id", isAuth, async (req, res) => {

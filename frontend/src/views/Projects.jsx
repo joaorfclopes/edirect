@@ -6,7 +6,9 @@ import Project from "../components/Project";
 import { useDispatch, useSelector } from "react-redux";
 import { listProjects } from "../actions/projectActions";
 import {
+  PROJECT_CREATE_RESET,
   PROJECT_DELETE_RESET,
+  PROJECT_UPDATE_RESET,
   TOGGLE_TASK_RESET,
 } from "../constants/projectConstants";
 
@@ -20,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Projects(props) {
+export default function Projects() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -28,16 +30,22 @@ export default function Projects(props) {
   const { projects } = projectList;
   const toggleTask = useSelector((state) => state.toggleTask);
   const { success: successToggle } = toggleTask;
+  const projectCreate = useSelector((state) => state.projectCreate);
+  const { success: successCreate } = projectCreate;
+  const projectUpdate = useSelector((state) => state.projectUpdate);
+  const { success: successUpdate } = projectUpdate;
   const projectDelete = useSelector((state) => state.projectDelete);
   const { success: successDelete } = projectDelete;
 
   useEffect(() => {
     dispatch(listProjects());
-    if (successToggle || successDelete) {
+    if (successToggle || successCreate || successUpdate || successDelete) {
       dispatch({ type: TOGGLE_TASK_RESET });
+      dispatch({ type: PROJECT_CREATE_RESET });
+      dispatch({ type: PROJECT_UPDATE_RESET });
       dispatch({ type: PROJECT_DELETE_RESET });
     }
-  }, [dispatch, successToggle, successDelete]);
+  }, [dispatch, successToggle, successCreate, successUpdate, successDelete]);
 
   return (
     <>

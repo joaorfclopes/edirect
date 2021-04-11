@@ -33,18 +33,19 @@ export default function SimpleModal(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    props.create();
+    props.create ? props.create() : props.update();
     props.handleClose();
   };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <Typography variant="h5" component="h2">
-        Create Project
+        {props.modalTitle}
       </Typography>
       <br />
       <form autoComplete="off" onSubmit={submitHandler}>
         <TextField
+          value={props.value && props.value}
           style={{ width: "100%" }}
           id="standard-basic"
           label="Project Name"
@@ -56,7 +57,7 @@ export default function SimpleModal(props) {
           variant="contained"
           color="primary"
         >
-          Create
+          {props.modalButtonText}
         </Button>
       </form>
       <SimpleModal />

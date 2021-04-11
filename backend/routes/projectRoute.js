@@ -11,8 +11,24 @@ projectRouter.get("/seed", async (req, res) => {
 });
 
 projectRouter.get("/", isAuth, async (req, res) => {
-  const orders = await Project.find({ user: req.user._id });
-  res.send(orders);
+  const projects = await Project.find({ user: req.user._id });
+  res.send(projects);
 });
+
+projectRouter.put(
+  "/:projectId/toggleTask/:taskId",
+  isAuth,
+  async (req, res) => {
+    const project = await Project.findById(req.params.projectId);
+    const taskId = req.params.taskId;
+    project.tasks.map(async (task) => {
+      if (task._id == taskId) {
+        task.done = !task.done;
+        const updatedProject = await project.save();
+        res.send({ message: "Task toggled", project: updatedProject });
+      }
+    });
+  }
+);
 
 export default projectRouter;

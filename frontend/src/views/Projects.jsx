@@ -44,7 +44,7 @@ export default function Projects(props) {
           {projects &&
             projects.map((project) => (
               <Grid key={project._id} item xs={12} sm={6} md={3}>
-                <Project project={project} />
+                <Project project={project} userInfo={userInfo} />
               </Grid>
             ))}
         </Grid>

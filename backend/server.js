@@ -10,11 +10,14 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = 5000;
 
-mongoose.connect("mongodb://localhost/edirect", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
+mongoose.connect(
+  "mongodb+srv://joaolopes:SVs6xzhr6oNWfwdH@cluster0.mehci.mongodb.net/edirect?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  }
+);
 
 app.use("/api/users", userRoute);
 app.use("/api/projects", projectRoute);

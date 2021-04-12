@@ -19,6 +19,9 @@ import {
   TASK_ADD_REQUEST,
   TASK_ADD_SUCCESS,
   TASK_ADD_FAIL,
+  TASK_DELETE_REQUEST,
+  TASK_DELETE_SUCCESS,
+  TASK_DELETE_FAIL,
 } from "../constants/projectConstants";
 
 export const listProjects = () => async (dispatch, getState) => {
@@ -147,5 +150,26 @@ export const addTask = (projectId, task) => async (dispatch, getState) => {
     dispatch({ type: TASK_ADD_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: TASK_ADD_FAIL, payload: error.message });
+  }
+};
+
+export const deleteTask = (projectId, taskId) => async (dispatch, getState) => {
+  dispatch({ type: TASK_DELETE_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await axios.put(
+      `/api/projects/${projectId}/deleteTask/${taskId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+    dispatch({ type: TASK_DELETE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: TASK_DELETE_FAIL, payload: error.message });
   }
 };

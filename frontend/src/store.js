@@ -10,6 +10,7 @@ import {
   projectListReducer,
   projectUpdateReducer,
   taskAddReducer,
+  taskDeleteReducer,
   taskToggleReducer,
 } from "./reducers/projectReducers";
 
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   projectDelete: projectDeleteReducer,
   taskToggle: taskToggleReducer,
   taskAdd: taskAddReducer,
+  taskDelete: taskDeleteReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

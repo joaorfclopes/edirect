@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useDispatch } from "react-redux";
-import { toggleTask } from "../actions/projectActions";
+import { deleteTask, toggleTask } from "../actions/projectActions";
 
 export default function Task(props) {
   const dispatch = useDispatch();
@@ -19,6 +19,10 @@ export default function Task(props) {
   const handleChange = () => {
     dispatch(toggleTask(project._id, task._id));
     setChecked(!checked);
+  };
+
+  const handleDelete = async () => {
+    dispatch(deleteTask(project._id, task._id));
   };
 
   return (
@@ -36,7 +40,7 @@ export default function Task(props) {
       </ListItemIcon>
       <ListItemText id={task._id} primary={task.title} />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="clear">
+        <IconButton onClick={handleDelete} edge="end" aria-label="clear">
           <ClearIcon />
         </IconButton>
       </ListItemSecondaryAction>

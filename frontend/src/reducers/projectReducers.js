@@ -22,6 +22,10 @@ import {
   TASK_ADD_SUCCESS,
   TASK_ADD_FAIL,
   TASK_ADD_RESET,
+  TASK_DELETE_REQUEST,
+  TASK_DELETE_SUCCESS,
+  TASK_DELETE_FAIL,
+  TASK_DELETE_RESET,
 } from "../constants/projectConstants";
 
 export const projectListReducer = (state = { projects: [] }, action) => {
@@ -106,6 +110,21 @@ export const taskAddReducer = (state = {}, action) => {
     case TASK_ADD_FAIL:
       return { loading: false, error: action.payload };
     case TASK_ADD_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const taskDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case TASK_DELETE_REQUEST:
+      return { loading: true };
+    case TASK_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case TASK_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    case TASK_DELETE_RESET:
       return {};
     default:
       return state;

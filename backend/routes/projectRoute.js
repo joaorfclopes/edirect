@@ -50,10 +50,10 @@ projectRouter.put(
     project.tasks.map(async (task) => {
       if (task._id == taskId) {
         task.done = !task.done;
-        const updatedProject = await project.save();
-        res.send(updatedProject);
       }
     });
+    const updatedProject = await project.save();
+    res.send(updatedProject);
   }
 );
 
@@ -66,5 +66,22 @@ projectRouter.put("/:projectId/addTask", isAuth, async (req, res) => {
   const updatedProject = await project.save();
   res.send(updatedProject);
 });
+
+projectRouter.put(
+  "/:projectId/deleteTask/:taskId",
+  isAuth,
+  async (req, res) => {
+    const project = await Project.findById(req.params.projectId);
+    const taskId = req.params.taskId;
+    const taskIndex = project.tasks.findIndex(function (task) {
+      return task.id === taskId;
+    });
+    if (taskIndex !== -1) {
+      project.tasks.splice(taskIndex, 1);
+    }
+    const updatedProject = await project.save();
+    res.send(updatedProject);
+  }
+);
 
 export default projectRouter;

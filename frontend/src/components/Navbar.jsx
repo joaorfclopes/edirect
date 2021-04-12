@@ -109,7 +109,7 @@ export default function MenuAppBar() {
         </Toolbar>
       </AppBar>
       <Modal
-        modalTitle="Create Product"
+        modalTitle="Create Project"
         modalButtonText="Create"
         open={openModal}
         handleClose={handleCloseModal}

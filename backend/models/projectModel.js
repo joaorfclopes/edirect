@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const projectSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     tasks: [
       {
-        title: { type: String, required: true, unique: true },
+        title: { type: String, required: true },
         done: { type: Boolean, required: true, default: false },
       },
     ],

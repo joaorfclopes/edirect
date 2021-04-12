@@ -9,7 +9,6 @@ import {
   PROJECT_CREATE_RESET,
   PROJECT_DELETE_RESET,
   PROJECT_UPDATE_RESET,
-  TOGGLE_TASK_RESET,
 } from "../constants/projectConstants";
 
 const useStyles = makeStyles(() => ({
@@ -28,8 +27,6 @@ export default function Projects() {
   const dispatch = useDispatch();
   const projectList = useSelector((state) => state.projectList);
   const { projects } = projectList;
-  const toggleTask = useSelector((state) => state.toggleTask);
-  const { success: successToggle } = toggleTask;
   const projectCreate = useSelector((state) => state.projectCreate);
   const { success: successCreate } = projectCreate;
   const projectUpdate = useSelector((state) => state.projectUpdate);
@@ -39,13 +36,12 @@ export default function Projects() {
 
   useEffect(() => {
     dispatch(listProjects());
-    if (successToggle || successCreate || successUpdate || successDelete) {
-      dispatch({ type: TOGGLE_TASK_RESET });
+    if (successCreate || successUpdate || successDelete) {
       dispatch({ type: PROJECT_CREATE_RESET });
       dispatch({ type: PROJECT_UPDATE_RESET });
       dispatch({ type: PROJECT_DELETE_RESET });
     }
-  }, [dispatch, successToggle, successCreate, successUpdate, successDelete]);
+  }, [dispatch, successCreate, successUpdate, successDelete]);
 
   return (
     <>

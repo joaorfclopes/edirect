@@ -9,7 +9,6 @@ import {
   projectDeleteReducer,
   projectListReducer,
   projectUpdateReducer,
-  toggleTaskReducer,
 } from "./reducers/projectReducers";
 
 const initialState = {
@@ -24,7 +23,6 @@ const reducer = combineReducers({
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
   projectList: projectListReducer,
-  toggleTask: toggleTaskReducer,
   projectCreate: projectCreateReducer,
   projectUpdate: projectUpdateReducer,
   projectDelete: projectDeleteReducer,

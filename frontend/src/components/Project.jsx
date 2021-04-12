@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { deleteProject, updateProject } from "../actions/projectActions";
 import Modal from "./Modal";
 import Alert from "./Alert";
+import { Button, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: "100%",
     backgroundColor: theme.palette.background.paper,
+  },
+  textfield: {
+    width: "100%",
+  },
+  button: {
+    width: "100%",
+    marginTop: "15px",
   },
 }));
 
@@ -72,6 +80,10 @@ export default function Project(props) {
     setOpenModal(false);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -107,9 +119,27 @@ export default function Project(props) {
                 )
             )}
         </List>
+        <Divider light />
+        <br />
+        <form autoComplete="off" onSubmit={handleSubmit}>
+          <TextField
+            className={classes.textfield}
+            id={`outlined-basic-${project._id}`}
+            label="New Item"
+            variant="outlined"
+          />
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Add
+          </Button>
+        </form>
       </CardContent>
       <Modal
-        modalTitle="Update Product"
+        modalTitle="Update Project"
         modalButtonText="Update"
         open={openModal}
         handleClose={handleCloseModal}

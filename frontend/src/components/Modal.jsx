@@ -45,14 +45,15 @@ export default function SimpleModal(props) {
       <br />
       <form autoComplete="off" onSubmit={submitHandler}>
         <TextField
-          value={props.value && props.value}
+          value={props.value}
           style={{ width: "100%" }}
           id="standard-basic"
           label="Project Name"
           onChange={(e) => props.setProjectName(e.target.value)}
+          variant="outlined"
         />
         <Button
-          style={{ marginTop: "30px", width: "100%" }}
+          style={{ marginTop: "15px", width: "100%" }}
           type="submit"
           variant="contained"
           color="primary"

@@ -15,22 +15,6 @@ projectRouter.get("/", isAuth, async (req, res) => {
   res.send(projects);
 });
 
-projectRouter.put(
-  "/:projectId/toggleTask/:taskId",
-  isAuth,
-  async (req, res) => {
-    const project = await Project.findById(req.params.projectId);
-    const taskId = req.params.taskId;
-    project.tasks.map(async (task) => {
-      if (task._id == taskId) {
-        task.done = !task.done;
-        const updatedProject = await project.save();
-        res.send(updatedProject);
-      }
-    });
-  }
-);
-
 projectRouter.post("/", isAuth, async (req, res) => {
   const project = new Project({
     name: req.body.name,

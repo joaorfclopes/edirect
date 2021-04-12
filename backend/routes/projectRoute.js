@@ -41,4 +41,30 @@ projectRouter.delete("/:id", isAuth, async (req, res) => {
   }
 });
 
+projectRouter.put(
+  "/:projectId/toggleTask/:taskId",
+  isAuth,
+  async (req, res) => {
+    const project = await Project.findById(req.params.projectId);
+    const taskId = req.params.taskId;
+    project.tasks.map(async (task) => {
+      if (task._id == taskId) {
+        task.done = !task.done;
+        const updatedProject = await project.save();
+        res.send(updatedProject);
+      }
+    });
+  }
+);
+
+projectRouter.put("/:projectId/addTask", isAuth, async (req, res) => {
+  const project = await Project.findById(req.params.projectId);
+  project.tasks.push({
+    title: req.body.title,
+    done: false,
+  });
+  const updatedProject = await project.save();
+  res.send(updatedProject);
+});
+
 export default projectRouter;

@@ -9,6 +9,8 @@ import {
   projectDeleteReducer,
   projectListReducer,
   projectUpdateReducer,
+  taskAddReducer,
+  taskToggleReducer,
 } from "./reducers/projectReducers";
 
 const initialState = {
@@ -26,6 +28,8 @@ const reducer = combineReducers({
   projectCreate: projectCreateReducer,
   projectUpdate: projectUpdateReducer,
   projectDelete: projectDeleteReducer,
+  taskToggle: taskToggleReducer,
+  taskAdd: taskAddReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

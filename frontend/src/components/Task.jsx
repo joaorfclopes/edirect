@@ -6,13 +6,18 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import ClearIcon from "@material-ui/icons/Clear";
+import { useDispatch } from "react-redux";
+import { toggleTask } from "../actions/projectActions";
 
 export default function Task(props) {
-  const task = props.task;
+  const dispatch = useDispatch();
+
+  const { project, task } = props;
 
   const [checked, setChecked] = useState(task.done);
 
   const handleChange = () => {
+    dispatch(toggleTask(project._id, task._id));
     setChecked(!checked);
   };
 

@@ -13,6 +13,12 @@ import {
   PROJECT_UPDATE_REQUEST,
   PROJECT_UPDATE_SUCCESS,
   PROJECT_UPDATE_FAIL,
+  TASK_TOGGLE_REQUEST,
+  TASK_TOGGLE_SUCCESS,
+  TASK_TOGGLE_FAIL,
+  TASK_ADD_REQUEST,
+  TASK_ADD_SUCCESS,
+  TASK_ADD_FAIL,
 } from "../constants/projectConstants";
 
 export const listProjects = () => async (dispatch, getState) => {
@@ -99,5 +105,47 @@ export const deleteProject = (projectId) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const toggleTask = (projectId, taskId) => async (dispatch, getState) => {
+  dispatch({ type: TASK_TOGGLE_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await axios.put(
+      `/api/projects/${projectId}/toggleTask/${taskId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+    dispatch({ type: TASK_TOGGLE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: TASK_TOGGLE_FAIL, payload: error.message });
+  }
+};
+
+export const addTask = (projectId, task) => async (dispatch, getState) => {
+  dispatch({ type: TASK_ADD_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await axios.put(
+      `/api/projects/${projectId}/addTask`,
+      task,
+      {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+    dispatch({ type: TASK_ADD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: TASK_ADD_FAIL, payload: error.message });
   }
 };

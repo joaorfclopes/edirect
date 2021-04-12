@@ -14,6 +14,14 @@ import {
   PROJECT_UPDATE_SUCCESS,
   PROJECT_UPDATE_FAIL,
   PROJECT_UPDATE_RESET,
+  TASK_TOGGLE_REQUEST,
+  TASK_TOGGLE_SUCCESS,
+  TASK_TOGGLE_FAIL,
+  TASK_TOGGLE_RESET,
+  TASK_ADD_REQUEST,
+  TASK_ADD_SUCCESS,
+  TASK_ADD_FAIL,
+  TASK_ADD_RESET,
 } from "../constants/projectConstants";
 
 export const projectListReducer = (state = { projects: [] }, action) => {
@@ -68,6 +76,36 @@ export const projectDeleteReducer = (state = {}, action) => {
     case PROJECT_DELETE_FAIL:
       return { loading: false, error: action.payload };
     case PROJECT_DELETE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const taskToggleReducer = (state = {}, action) => {
+  switch (action.type) {
+    case TASK_TOGGLE_REQUEST:
+      return { loading: true };
+    case TASK_TOGGLE_SUCCESS:
+      return { loading: false, success: true };
+    case TASK_TOGGLE_FAIL:
+      return { loading: false, error: action.payload };
+    case TASK_TOGGLE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const taskAddReducer = (state = {}, action) => {
+  switch (action.type) {
+    case TASK_ADD_REQUEST:
+      return { loading: true };
+    case TASK_ADD_SUCCESS:
+      return { loading: false, success: true };
+    case TASK_ADD_FAIL:
+      return { loading: false, error: action.payload };
+    case TASK_ADD_RESET:
       return {};
     default:
       return state;

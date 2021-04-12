@@ -10,7 +10,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import List from "@material-ui/core/List";
 import Task from "./Task";
 import { useDispatch } from "react-redux";
-import { deleteProject, updateProject } from "../actions/projectActions";
+import {
+  addTask,
+  deleteProject,
+  updateProject,
+} from "../actions/projectActions";
 import Modal from "./Modal";
 import Alert from "./Alert";
 import { Button, TextField } from "@material-ui/core";
@@ -48,6 +52,7 @@ export default function Project(props) {
   const [openAlert, setOpenAlert] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
   const [projectName, setProjectName] = React.useState(project.name);
+  const [newTaskTitle, setNewTaskTitle] = React.useState("");
 
   const deleteHandler = () => {
     dispatch(deleteProject(project._id));
@@ -82,6 +87,11 @@ export default function Project(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(
+      addTask(project._id, {
+        title: newTaskTitle,
+      })
+    );
   };
 
   return (
@@ -127,6 +137,7 @@ export default function Project(props) {
             id={`outlined-basic-${project._id}`}
             label="New Item"
             variant="outlined"
+            onChange={(e) => setNewTaskTitle(e.target.value)}
           />
           <Button
             className={classes.button}
